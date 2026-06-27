@@ -29,10 +29,9 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
-        \App\Models\Barang::create($request->all());
+        \App\Models\Barang::create($data);     
         return redirect()->route('barang.index');
     }
-
     /**
      * Display the specified resource.
      */
