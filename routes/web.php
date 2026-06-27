@@ -24,3 +24,5 @@ Route::middleware(['auth'])->group(function () {
     // CRUD Barang
     Route::resource('barang', BarangController::class);
 });
+
+require __DIR__.'/auth.php';
