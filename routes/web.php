@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
 
+// 1. HALAMAN UTAMA (Otomatis dilempar ke login)
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
+// 2. RUTE YANG DIKUNCI MIDDLEWARE (Harus Login)
 Route::middleware(['auth'])->group(function () {
     
     Route::get('/beranda', function () {
@@ -18,5 +20,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('barang', BarangController::class);
 });
 
-// 3. RUTE OTENTIKASI (Pastikan tertulis rapi tanpa titik di tengah)
+// 3. MEMANGGIL FILE AUTH BREEZE YANG BARU KITA UPLOAD
 require __DIR__.'/auth.php';
