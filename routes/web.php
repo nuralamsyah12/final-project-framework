@@ -2,13 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
+use Illuminate\Support\Facades\Auth;
 
-// 1. HALAMAN UTAMA (Otomatis dilempar ke login)
+// 1. HALAMAN UTAMA
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// 2. RUTE YANG DIKUNCI MIDDLEWARE (Harus Login)
+// 2. RUTE OTENTIKASI OTOMATIS BREEZE/LARAVEL
+Auth::routes(['verify' => false]);
+
+// 3. RUTE YANG DIKUNCI MIDDLEWARE
 Route::middleware(['auth'])->group(function () {
     
     Route::get('/beranda', function () {
@@ -19,6 +23,3 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('barang', BarangController::class);
 });
-
-// 3. MEMANGGIL FILE AUTH BREEZE YANG BARU KITA UPLOAD
-require __DIR__.'/auth.php';
