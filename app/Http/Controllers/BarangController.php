@@ -38,8 +38,7 @@ class BarangController extends Controller
      */
     public function show(string $id)
     {
-        $barang = Barang::findOrFail($id);
-        return view('barang.show', compact('barang'));
+        //
     }
 
     /**
@@ -47,8 +46,7 @@ class BarangController extends Controller
      */
     public function edit(string $id)
     {
-        $barang = Barang::findOrFail($id);
-        return view('barang.edit', compact('barang'));
+        //
     }
 
     /**
@@ -56,17 +54,7 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nama_barang' => 'required|string|max:255',
-            'kode_barang' => 'required|string|max:50',
-            'stok'        => 'required|integer|min:0',
-            'harga'       => 'required|numeric|min:0',
-        ]);
-
-        $barang = Barang::findOrFail($id);
-        $barang->update($request->all());
-
-        return redirect()->route('barang.index')->with('success', 'Barang berhasil diperbarui.');
+        //
     }
     }
 
