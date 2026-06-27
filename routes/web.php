@@ -5,12 +5,10 @@ use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-// 1. HALAMAN UTAMA (Otomatis lempar ke login)
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// 2. LOGIKA AUTENTIKASI LANGSUNG (Bypass Controller)
 Route::middleware('guest')->group(function () {
     
     // Tampilkan Form Login murni
@@ -43,7 +41,7 @@ Route::middleware('guest')->group(function () {
     // Proses data Register baru
     Route::post('register', function (Request $request) {
         $request->validate([
-            'name' => ['required', 'string', 'max::255'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ]);
@@ -60,7 +58,6 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-// 3. RUTE DASHBOARD YANG DIKUNCI (Harus Login)
 Route::middleware(['auth'])->group(function () {
     
     Route::get('/beranda', function () {
