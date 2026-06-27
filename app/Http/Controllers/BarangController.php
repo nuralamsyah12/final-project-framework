@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -11,7 +12,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barangs = \App\Models\Barang::all();
+        $barangs = Barang::all();
         return view('barang.index', compact('barangs'));
     }
 
@@ -28,16 +29,30 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi data agar inputan aman dan sesuai tipe data database
+        $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'kode_barang' => 'required|string|max:50',
+            'stok'        => 'required|integer|min:0',
+            'harga'       => 'required|numeric|min:0',
+        ]);
+
+        // Mengambil semua data dari form KECUALI token CSRF
         $data = $request->except('_token');
-        \App\Models\Barang::create($data);     
-        return redirect()->route('barang.index');
+
+        // Menyimpan data yang sudah bersih ke dalam database
+        Barang::create($data);
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan.');
     }
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $barang = Barang::findOrFail($id);
+        return view('barang.show', compact('barang'));
     }
 
     /**
@@ -45,7 +60,8 @@ class BarangController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $barang = Barang::findOrFail($id);
+        return view('barang.edit', compact('barang'));
     }
 
     /**
@@ -53,8 +69,18 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'kode_barang' => 'required|string|max:50',
+            'stok'        => 'required|integer|min:0',
+            'harga'       => 'required|numeric|min:0',
+        ]);
+
+        $barang = Barang::findOrFail($id);
+        $data = $request->except('_token');
+        $barang->update($data);
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil diperbarui.');
     }
 
     /**
