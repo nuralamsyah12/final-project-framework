@@ -22,7 +22,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-custom shadow-sm mb-4">
         <div class="container">
-            <a class="navbar-brand text-white fw-bold" href="#">📦 GudangKu</a>
+            <a class="navbar-brand text-white fw-bold" href="/beranda">📦 GudangKu</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,7 +36,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="m-0">
                         @csrf
                         <button type="submit" class="btn btn-link nav-link text-white border-0 p-0" style="text-decoration: none;">
-                            ❌ Logout
+                                Logout
                         </button>
                     </form>
                 </div>
