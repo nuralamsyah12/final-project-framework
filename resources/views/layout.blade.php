@@ -17,6 +17,12 @@
                 <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Beranda</a>
                 <a class="nav-link {{ request()->is('barang*') ? 'active' : '' }}" href="{{ route('barang.index') }}">Data Barang</a>
             </div>
+            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                @csrf
+                <button type="submit" class="btn btn-link nav-link text-white border-0 p-0" style="text-decoration: none;">
+                    ❌ Logout
+                </button>
+            </form>
         </div>
     </nav>
     <div class="container">
